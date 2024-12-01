@@ -61,6 +61,9 @@ body {
 .telegram { background: #0088cc; }
 .whitepaper { background: #2ecc71; }
 .instructions { background: #e74c3c; }
+.buy-now { 
+    background: #27ae60; /* Green color for buy button */
+}
 
 /* Grid Styles */
 .grid-wrapper {
