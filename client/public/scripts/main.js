@@ -12,6 +12,7 @@ class MinesweeperGame {
         this.setupInstructionsButton();
         
         this.init();
+        this.API_URL = window.location.origin; // Use relative URL
     }
 
     init() {
@@ -52,19 +53,8 @@ class MinesweeperGame {
             return;
         }
 
-        const now = Date.now();
-        const timeSinceLastClick = now - this.lastClickTime;
-        
-        if (this.lastClickTime && timeSinceLastClick < this.cooldownTime) {
-            const remainingTime = this.cooldownTime - timeSinceLastClick;
-            const minutes = Math.floor(remainingTime / 60000);
-            const seconds = Math.floor((remainingTime % 60000) / 1000);
-            alert(`Please wait ${minutes}m ${seconds}s before clicking again`);
-            return;
-        }
-
         try {
-            const response = await fetch('/api/click', {
+            const response = await fetch(`${this.API_URL}/api/click`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -118,7 +108,7 @@ class MinesweeperGame {
 
     async checkUserStatus() {
         try {
-            const response = await fetch('/api/status');
+            const response = await fetch(`${this.API_URL}/api/status`);
             const data = await response.json();
             
             this.lastClickTime = data.lastClickTime || 0;
